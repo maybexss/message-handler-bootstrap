@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- second type of generating xml use mybatis -->
+<generatorConfiguration>
+    <properties resource="application.yml"/>
+    <context id="mysqlTable" targetRuntime="MyBatis3">
+        <!-- pojo generated will implements Serializable-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <commentGenerator>
+            <!-- whether delete auto comments-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- connect url, username and password for database -->
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
+        </jdbcConnection>
+
+        <!-- parse JDBC DECIMAL AND NUMERIC to Integer, if false, then JDBC DECIMAL AND NUMERIC will be parsed to java.math.BigDecimal,
+        default: false -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- generate model, package path, and file store path(targetProject), targetProject can set detail path, such as ./src/main/java,
+         can auto generate also by using MAVEN, but it will be at target/generator-source path-->
+        <!--<javaModelGenerator targetPackage="com.joey.mybaties.test.pojo" targetProject="MAVEN">-->
+        <javaModelGenerator targetPackage="com.xss.sweeky.info.user.model" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <!-- trim space before return from database  -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- store path for mapper.xml  -->
+        <sqlMapGenerator targetPackage="com.xss.sweeky.info.user.mapper" targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- path for Mapper interface -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xss.sweeky.info.user.mapper" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- all tables need to generate, no generating Example file -->
+        <table tableName="t_handled_message" domainObjectName="AddressInfo"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+    </context>
+</generatorConfiguration>

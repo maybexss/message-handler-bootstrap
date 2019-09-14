@@ -1,0 +1,44 @@
+server:
+  9001
+spring:
+  application:
+    name: MessageHandlerApplication
+  datasource:
+    url: jdbc:mysql://localhost:3306/messagedb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    # use druid datasource
+    type: com.alibaba.druid.pool.DruidDataSource
+    # init minn pool size and max pool size
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    # wait timeout for getting connection from pool
+    maxWaitL: 60000
+    # check time for closing free connection(microseconds)
+    timeBetweeenEcictionRunsMillis: 60000
+    # min alive time for connection in pool(microseconds)
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # open ps cache, and select ps cache size for every connection
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # monitor and filter(wall for firewall)
+    filters: stat,wall,log4j
+    # open merge sql function, slow sql record configuration
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # merge multiple monitor data for druid datasource
+    useGlobalDataSourceStat: true
+    schema:
+      # classpath:messagedb.sql is a complete path, not for configuration of classpath, do not add space after :
+      - classpath:messagedb.sql
+      data:
+        # classpath:message-init.sql is a complete path, not for configuration of classpath, do not add space after :
+        - classpath:message-init.sql
+        # classpath:message-other.sql is a complete path, not for configuration of classpath, do not add space after :
+        - classpath:message-other.sql
+      initialization-mode: always

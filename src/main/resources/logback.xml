@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
+        debug="false" scan="true" scanPeriod="30 seconds">
+    <property name="APP_NAME" value="message-handler"/>
+    <property name="LOG_HOME" value="logs/${APP_NAME}/"/>
+    <property name="FILE_SIZE" value="500MB"/>
+    <property name="MAX_HISTORY" value="30"/>
+    <timestamp key="DATETIME" datePattern="yyyy-MM-dd HH:mm:ss.SSS"/>
+    <!-- console print -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder default: PatternLayoutEncoder -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder" charset="utf-8">
+            <pattern>%d{${DATETIME}} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}${APP_NAME} - %d.%i.log</FileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder" charset="utf-8">
+            <pattern>%d{${DATETIME}} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- log of SQL-->
+    <logger name="org.apache.ibatis" level="INFO" additivity="false"/>
+    <logger name="org.mybatis.spring" level="INFO" additivity="false"/>
+    <logger name="com.github.miemiedev.mybatis.paginator" level="INFO" additivity="false"/>
+
+    <!-- Logger root path -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- global parameters -->
+    <settings>
+        <!-- global mapping use cache or not -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- global loading use lazy mode or not. If not use, all associated objects will load at once -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- when use aggressive lazy loading, object which has lazy loading property will fully load all properties when dispatched,
+        if not, every property will load for need. -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <!-- whether one sql can return more than one result(depends on compatibility of driver), default:true -->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <!-- use alias for column or not(depends on compatibility of driver), default:true -->
+        <setting name="useColumnLabel" value="true"/>
+        <!-- allow jdbc generate primary key or not(depends on compatibility of driver),if true, this configuration will force using
+        generated primary key, some drivers are not supported but can run also, default:false -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!-- set mybatis mapping mode for base data column: NONE=>not mapping, PARTIAL=>part of, FULL:all  -->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- default execute type(SIMPLE:simple, REUSE:executor can repeat using prepared statements sql, BATCH:executor can repeat executing
+        sql and batch update) -->
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <!-- use camel case to cast column to java object -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- local cache scope(session:has data share, statement: sql scope, no data share) default:session -->
+        <setting name="localCacheScope" value="SESSION"/>
+        <!-- if jdbc type is null, some drivers must set value, default:OTHER, no need to set value if insert NULL -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+</configuration>
